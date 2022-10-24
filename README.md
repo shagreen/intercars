@@ -75,3 +75,4 @@ Jest kilka rzeczy które jeszcze chciałem zrobić ale zabrakło mi czasu. Z tak
 5. Więcej końcówek, ale myślę, że tego kodu już jest całkiem wystarczająco by pokazać, w jaki sposób rozumuję.
 6. Można zrobić z pola iban primary key
 7. Unity do serwisów - uznalem, ze testy dla usersow sa wystarczajace by pokazac ze potrafie je pisać :)
+8. Logowanie - zwykle używam structloga, ale appka niewiele lobi więc ostatecznie pominąłem temat.
