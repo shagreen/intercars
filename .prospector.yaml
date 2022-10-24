@@ -1,0 +1,45 @@
+strictness: veryhigh
+doc-warnings: true
+test-warnings: true
+
+ignore-paths:
+  - manage.py
+  - migrations
+  - docker
+  - __init__.py
+  - models.py # We moved models to models directory
+  - intercars/settings.py
+  - intercars/utils/ # Imported from django styleguide
+
+# todo: change pep257 validation to reST
+pep257:
+  run: false # TODO: Bardzo restrykcyjne, pytanie czy potrzebne.
+  disable:
+    - D104  # Docstring in public module
+    - D106  # Missing docstring in public nested class
+    - D211  # Conflicts with D203
+    - D212  # Multi-line docstring summary should start at the first line
+    - D203  # One blank line before docstring
+    - D204  # One blank line after docstring
+    - D415  # First line should end with a period
+
+pep8:
+  run: true
+  disable:
+    - E501 # line too long
+
+
+pylint:
+  run: true
+  disable:
+    - C0114  # Missing module docstring
+    - W0221  # Parameters differ from overridden
+    - too-few-public-methods
+    - no-self-use
+    - abstract-method
+
+  options:
+    max-line-length: 120
+    max-parents: 12
+    max-public-methods: 25
+

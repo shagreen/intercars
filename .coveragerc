@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = .
+omit = ./*migrations*, ./manage.py, *apps.py*, *asgi.py*, *wsgi.py*
+
+[report]

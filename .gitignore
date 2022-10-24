@@ -1,0 +1,20 @@
+# Coverage report files
+.coverage
+htmlcov/
+
+# Docker
+docker/docker-compose.override.yml
+
+# Python Pyc files
+__pycache__
+*.pyc
+
+# IDE
+.idea
+
+# Statics
+static/
+staticfiles/
+
+# Database
+db.squlite3

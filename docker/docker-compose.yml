@@ -1,0 +1,43 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379"
+    volumes:
+      - redis:/data
+    restart: on-failure
+
+  postgres:
+    image: postgres:13.2
+    env_file:
+      - ./env_files/local/postgres.env
+    ports:
+      - "5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    restart: on-failure
+
+  backend:
+    build: .
+    user: root
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/app
+    env_file:
+      - ./env_files/local/app.env
+    entrypoint:
+      - /app/docker/entrypoint.sh
+
+volumes:
+  postgres:
+    external: false
+  redis:
+    external: false
+  backend:
+    external: false
+
