@@ -1,29 +1,28 @@
 # Backend
 
-Appka rekrutacyjna do Intercars
+Recruitment app for Intercars
 
 # Architecture
 
-Powiedzieliście, żebym skupił się nie na widokach tylko na backendzie, dlatego postanowiłem napisać tą aplikacje jako
-"headless" a jako główny framework wybrałem nie czyste django a django-rest-framework. Standardy oparłem na styleguide
-stworzony przez HackSoftware dostępny tutaj:
+You told me to focus not on views but on backend, so I decided to write this app as "headless" and as the main framework I chose not pure django but django-rest-framework. I based the standards on styleguide created by HackSoftware available here:
+
 https://github.com/HackSoftware/Django-Styleguide
 
-Wybrałem ten styleguide z dwóch powodów:
+I chose this styleguide for two reasons:
 
-1. Bardzo go lubię :) Chociaż lekko to zmodyfikałem pod siebie
-2. Wasza appka działa lata i jest pisana na lata - ten styleguide jest bardzo "sztywny" i dobrze opisuje
-   odpowiedzialność poszczególnych elementów, dlatego uważam, że do takich aplikacji nadaje się bardzo dobrze.
+1. I like it a lot :) Although I slightly modified it for myself
 
-Moduł "intercars", potraktowałem jako common, nie wiem czy nie lepiej byłoby wydzielić tego do innej appki ale zostawiam
-już tak jak jest. Znajdują się tam utilsy i commony pobrane z wyżej wymienionego style guide. Osobiście sama
-implementacja średnio mi się podoba i jakbym miał więcej czasu to trochę bym te utilsy poprawił.
+2. Your app has been working for years and is written for years - this styleguide is very "rigid" and describes well the responsibility of individual elements, which is why I think it is very suitable for such applications.
+
+I treated the "intercars" module as common, I don't know if it wouldn't be better to separate it to another app, but I'll leave it as it is. There are utilities and commons downloaded from the aforementioned style guide. Personally, I don't like the implementation itself and if I had more time, I would improve these utilities a bit.
 
 ## Docker Images:
 
-Redis = Chciałem wykorzystać do cache ale zabrakło mi czasu  
-Postgres = Baza danych  
-Backend = Server Django. Kod znajduje się w katalogu /app/
+Redis = I wanted to use it for caching but I ran out of time
+
+Postgres = Database
+
+Backend = Django Server. The code is in the /app/ directory
 
 # Run
 
@@ -32,7 +31,7 @@ $ cd docker
 $ docker-compose up --build
 ```
 
-Serwer automatycznie "wstanie" ale nie ma napisanych fixtur. Należy stworzyć sobie użytkowników przez
+The server will automatically "start up" but there are no fixes written. You need to create users via
 
 ```bash
 ./manage createsuperuser
@@ -40,13 +39,13 @@ Serwer automatycznie "wstanie" ale nie ma napisanych fixtur. Należy stworzyć s
 
 # Tests
 
-Skrypt run_test.sh
+Script run_test.sh
 
-Skrypt automatycznie odpala testy oraz zwraca coverage do katalogu *htmlcov*. Jest to wygodne przy CI, bo zwraca output
-z testów (przez co CI ładnie pokarze błąd) a jednocześnie katalog *htmlcov* przydaje się gdy jest wrzucone do
-artefaktów.
+The script automatically starts tests and returns coverage to the *htmlcov* directory. This is convenient for CI, because it returns output
+from tests (which will nicely show the error in CI) and at the same time the *htmlcov* directory is useful when it is thrown into
+artifacts.
 
-Oprócz tego jest skonfigurowany i zainstalowany prospector, którego najprościej uruchomić z głównego katalogu projektu:
+In addition, the prospector is configured and installed, which is easiest to run from the main project directory:
 
 ```bash
 python3 -m prospector
@@ -54,25 +53,28 @@ python3 -m prospector
 
 # Swagger
 
-końcówka: ```http://0.0.0.0:8000/swagger/```  
-Na szybko jak używać:
+end: ```http://0.0.0.0:8000/swagger/```
+Quickly how to use it:
 
-Znajdź końcówke  ```/ login /``` i zaloguj się na użytkownika, którego wcześniej stworzysz za pomocą "createsuperuser".
-W zwrotce dostaniesz token, który należy wpisać w okno które pojawi się po kliknięciu w przycisk ```Authenticate```
-który jest na górze strony swaggera po prawej stronie. Token trzeba wpisać w formule:  ```Token xxxxxxxxx```. Od tej
-pory header zostanie dodany do każdej ramki podczas używania swaggera. Jest to najwygodniejsza opcja korzystania z tego
+Find the ```/ login /``` end and log in to the user you created earlier using "createsuperuser".
+In the return you will get a token, which you should enter in the window that appears after clicking the ```Authenticate``` button
+which is at the top of the swagger page on the right. The token should be entered in the formula: ```Token xxxxxxxxx```. From now on,
+the header will be added to every frame when using swagger. This is the most convenient option for using this
 API.
 
 # TODO:
 
-Jest kilka rzeczy które jeszcze chciałem zrobić ale zabrakło mi czasu. Z takich najbardziej oczywistych to:
+There are a few things I still wanted to do but I ran out of time. The most obvious ones are:
 
-1. IbanField - który by automatycznie określał i walidował pole iban
-2. BaseSerializer - który posiadałby, chociażby Meta w ktorym ref_name=None byłby zawsze, tak by nie trzeba było pisać
-   tego za każdym razem.
-3. Chciałem wykorzystać redisa jako cache
-4. Działające gitlab CI-CD
-5. Więcej końcówek, ale myślę, że tego kodu już jest całkiem wystarczająco by pokazać, w jaki sposób rozumuję.
-6. Można zrobić z pola iban primary key
-7. Unity do serwisów - uznalem, ze testy dla usersow sa wystarczajace by pokazac ze potrafie je pisać :)
-8. Logowanie - zwykle używam structloga, ale appka niewiele lobi więc ostatecznie pominąłem temat.
+1. IbanField - which would automatically determine and validate the iban field
+2. BaseSerializer - which would have, for example, Meta in which ref_name=None would always be, so that you wouldn't have to write it every time.
+
+3. I wanted to use redis as a cache
+
+4. Working gitlab CI-CD
+
+5. More tips, but I think there's enough code to show how I think.
+
+6. You can make the iban primary key from the field
+7. Unity for services - I decided that tests for users are enough to show that I can write them :)
+8. Logging - I usually use structlog, but the app doesn't do much, so I finally skipped the topic.
